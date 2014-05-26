@@ -1,8 +1,8 @@
 extends layout
 
 block content
-    input(id='test', data-option='{dateFormat: "yyyy年MM月dd日", handler: "#aaa"}')
-    input#aaa(type='button', value='test')
+    input(id='test', data-option='{dateFormat: "yyyy年MM月dd日", handler: "#handler"}')
+    button#handler 触发
     br
     input(id='test2', data-option='{dateFormat: "yyyy-MM-dd"}')
     br
