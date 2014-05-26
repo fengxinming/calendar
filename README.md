@@ -34,10 +34,10 @@ calendar
 		};
 	});
 
-在html中使用
+在html中定义
 
 	<input calendar ng-model='date' readonly />
 
-在Controller中使用
+在Controller中定义
 
 	$scope.date = new Date();
