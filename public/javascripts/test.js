@@ -1,0 +1,1 @@
+/*!build: 2014-05-26 04:26:37*/$(function(){$("#test, #test2").datepicker()});

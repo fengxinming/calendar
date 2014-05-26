@@ -1,0 +1,307 @@
+@mixin boxshadow($one, $two: null) {
+	@if $two {
+		-webkit-box-shadow: $one, $two;
+		-moz-box-shadow: $one, $two;
+		box-shadow: $one, $two;
+	} @else {
+		-webkit-box-shadow: $one;
+		-moz-box-shadow: $one;
+		box-shadow: $one;
+	}
+}
+
+@mixin borderradius($radius: 4px, $vert:null, $horz:null) {
+	@if $vert and $horz {
+		border-#{$vert}-#{$horz}-radius: $radius;
+		-moz-border-radius-#{$vert}#{$horz}: $radius;
+		-webkit-border-#{$vert}-#{$horz}-radius: $radius;
+	} @else {
+		border-radius: $radius;
+		-webkit-border-radius: $radius;
+		-moz-border-radius: $radius;
+	}
+}
+
+@mixin transition($what: all, $length: 1s, $easing: ease-in-out) {
+    -moz-transition:    $what $length $easing;
+    -o-transition:      $what $length $easing;
+    -webkit-transition: $what $length $easing;
+    -ms-transition:     $what $length $easing;
+    transition:         $what $length $easing;
+}
+
+@mixin opacity($opacity: 0.5) {
+	-moz-opacity:   $opacity;
+    -khtml-opacity: $opacity;
+    opacity:        $opacity;
+    filter:         alpha(opacity=($opacity * 100));
+    -ms-filter:     "progid:DXImageTransform.Microsoft.Alpha(Opacity=" + ($opacity * 100) + ")";
+}
+
+@mixin background-gradient($startColor: #FFFFFF, $endColor: #F0F0F0) {
+ 	background-color: $startColor;
+    background-image: -webkit-gradient(linear, left top, left bottom, from($startColor), to($endColor));
+    background-image: -webkit-linear-gradient(top, $startColor, $endColor);
+    background-image:    -moz-linear-gradient(top, $startColor, $endColor);
+    background-image:     -ms-linear-gradient(top, $startColor, $endColor);
+    background-image:      -o-linear-gradient(top, $startColor, $endColor);
+    background-image:         linear-gradient(top, $startColor, $endColor);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$startColor}', endColorStr='#{$endColor}');
+}
+
+//公用日历控件
+.ui-date {
+	//边框颜色
+	$box_border_color: #9fcee5;
+
+	//背景颜色
+	$box_bgc: #f8fcfe;
+	//弧度
+	$box_radius: 8px;
+	//长度
+	$box_width: 300px;
+	$box_index: 100;
+
+	@include boxshadow(inset 0 1px 10px rgba(0, 0, 0, 0.075), 0 0 20px rgba(82, 168, 236, 0.6));
+	@include borderradius($box_radius);
+	border: 2px solid $box_border_color;
+	position: absolute;
+	z-index: $box_index;
+	background-color: $box_bgc;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 14px;
+	width: $box_width;
+	padding: 20px 0;
+	display: none;
+	_overflow: hidden;
+
+	.tac {
+		text-align: center;
+	}
+	.vam {
+		vertical-align: middle;
+	}
+	.sfc{
+		color: #666;
+	}
+	.b {
+		font-weight: bold;
+	}
+	.nor {
+		font-weight: normal;
+	}
+	a {
+		color: #666;
+		text-decoration: none;
+		outline: none;
+	}
+
+	.ui-date-container {
+		position: relative;
+	}
+
+	$arrow-bg: #008fc7;
+
+	.ui-date-text {
+		height: 24px;
+		line-height: 24px;
+		@include borderradius(4px, top, left);
+		@include borderradius(4px, bottom, left);
+	}
+
+	.ui-date-select {
+		//margin: 0 auto;
+		background: #fff;
+		.ui-date-year, .ui-date-month {
+			border: 1px solid $box_border_color;
+			cursor: pointer;
+			@include borderradius(6px);
+			.ui-date-arrow {
+				background: $arrow-bg;
+				@include borderradius(4px, top, right);
+				@include borderradius(4px, bottom, right);
+				line-height: 24px;
+				padding-top: 10px;
+				padding-bottom: 4px;
+				.ui-date-arrow-blank {
+					height:0;
+					width:0;
+					font-size: 0; 
+					line-height: 0;
+					border-color: #fff transparent transparent transparent;
+					border-style:solid;
+					_border-style:solid dashed dashed dashed;
+					border-width:5px;
+					margin: 0 auto;
+				}
+				&:hover {
+					background: darken($arrow-bg, 10%);
+				}
+			}
+			.yui3-u-1-4 {
+				*width: 24.99%;
+			}
+		}
+		a:hover {
+			.ui-date-arrow {
+				background: darken($arrow-bg, 10%);
+			}
+		}
+	}
+
+	.ui-date-year-options, .ui-date-month-options {
+		display: none;
+		background: #fff;
+		border: 1px solid $box_border_color;
+		@include boxshadow(inset 0 1px 5px rgba(0, 0, 0, 0.075), 0 0 10px rgba(82, 168, 236, 0.6));
+        position: relative;
+        padding: 10px;
+		.ui-date-slideleft, .ui-date-slideright{
+			top: (140px - 30px) / 2;
+			position: absolute;
+			z-index: $box_index + 5;
+			width: 20px;
+			display: block;
+			overflow: hidden;
+			padding: 15px 0;
+			_height: 0;
+			.ui-date-arrow {
+				position: absolute;
+				top: (30px - 12) / 2;
+				left: 0;
+				height:0;
+				width:0;
+				font-size: 0; 
+				line-height: 0;
+				border-color: transparent #999 transparent transparent;
+				border-style:solid;
+				_border-style:dashed solid dashed dashed;
+				border-width:6px;
+				cursor: pointer;
+			}
+			&:hover {
+				background: #000;
+				@include opacity(0.6);
+				.ui-date-arrow {
+					border-right-color: #fff;
+				}
+			}
+		}
+		.ui-date-slideleft {
+			left: 0;
+			@include borderradius(20px, top, right);
+			@include borderradius(20px, bottom, right);
+		}
+		.ui-date-slideright {
+			right: 0;
+			@include borderradius(20px, top, left);
+			@include borderradius(20px, bottom, left);
+			.ui-date-arrow {
+				left: auto;
+				right: 0;
+				border-color: transparent transparent transparent #999;
+				border-style:solid;
+				_border-style:dashed dashed dashed solid;
+			}
+			&:hover {
+				.ui-date-arrow {
+					border-left-color: #fff;
+					border-right-color: transparent;
+				}
+			}
+		}
+		.ui-date-slideup {
+			margin: 0;
+			$slide_up_width: 60px;
+			position: absolute;
+			left: ($box_width * 5 / 6 - $slide_up_width) / 2;
+			bottom: -10px;
+			height: 10px;
+			width: $slide_up_width;
+			overflow: hidden;
+			background: $arrow-bg;
+			@include boxshadow(inset 0 1px 5px rgba(0, 0, 0, 0.075), 0 0 10px rgba(0, 0, 0, 0.6));
+			@include borderradius(4px, bottom, left);
+			@include borderradius(4px, bottom, right);
+			.ui-date-slideup-arrow {
+				height:0;
+				width:0;
+				font-size: 0; 
+				line-height: 0;
+				border-color: transparent transparent #fff transparent;
+				border-style:solid;
+				_border-style: dashed dashed solid dashed;
+				border-width:5px;
+				margin: 0 auto;
+				margin-top: -3px;
+				cursor: pointer;
+			}
+			&:hover {
+				background: darken($arrow-bg, 10%);
+			}
+		}
+	}
+
+	.ui-date-datatime {
+		padding-top: 10px;
+		span {
+			font-size: 13px;
+		}
+	}
+
+	.ui-date-year-options, .ui-date-month-options, .ui-date-datatime{
+		margin: 0 auto;
+		span, a {
+			margin: 3px;
+			width: 12%;
+			color: #666;
+			line-height: 25px;
+			display: inline-block;
+			zoom: 1;
+			letter-spacing: normal;
+			word-spacing: normal;
+			vertical-align: middle;
+			&.ui-date-datatime-selected {
+				background-color: #f08257;
+				color: #fff;
+				&:hover {
+					background-color: #f08257;
+					color: #fff;
+				}
+			}
+		}
+		a:hover {
+			background-color: #d7eff8;
+        	text-decoration: none;
+        	color: #0090C7;
+		}
+	}
+	.ui-date-year-options{
+		a {
+			width: 28%;
+			line-height: 40px;
+		}
+		.ui-date-year-option {
+			overflow: hidden;
+			width: 100%;
+			height: 100%;
+			position: relative;
+			.ui-date-year-option-inner {
+				position: absolute;
+				top: 0;
+				left: 0;
+				white-space: nowrap;
+				div {
+					white-space: normal;
+				}
+			}
+		}
+	}
+	.ui-date-month-options{
+		a {
+			width: 20%;
+			line-height: 40px;
+		}
+	}
+}
