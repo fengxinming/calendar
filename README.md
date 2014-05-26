@@ -4,6 +4,7 @@ calendar
 日历控件
 
 定义angular指令
+
 	module.directive('calendar', function() {
 		return {
 			require: '?ngModel',
@@ -34,7 +35,9 @@ calendar
 	});
 
 在html中使用
+
 	<input calendar ng-model='date' readonly />
 
 在Controller中使用
+
 	$scope.date = new Date();
