@@ -142,7 +142,7 @@
 		_createMonth: function() {
 			var month = domDiv.cloneNode(false);
 			month.className = 'ui-date-month-option';
-			for(var i = 1; i <= 9; i++) {
+			for(var i = 1; i <= 12; i++) {
 				var dom = month.appendChild(domATpl.cloneNode(false));
 				i == this._dest.MM && (dom.className = 'ui-date-datatime-selected');
 				dom.appendChild(document.createTextNode(''+i));			}
@@ -268,7 +268,6 @@
 	$.fn.datepicker = function(options) {
 		$.datepicker || ($.datepicker = new Datepicker());
 		closest($.datepicker.$el, 'body') || $.datepicker.$el.appendTo('body');
-
 		$(this).on('mousedown', function(evt) {
 			$.datepicker.show(this, options);
 		});
